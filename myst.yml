@@ -1,0 +1,20 @@
+version: 1
+
+project:
+  title: OpenMC Studies
+  authors:
+    - name: Mary P. W. Chin
+  github: https://github.com/marypwchin/openmc-studies
+  toc:
+    - file: index.md
+    - title: Nuclear data
+      children:
+        - file: 0_nuclear_data/0_0_setting_up_nuclear_data.ipynb
+        - file: 0_nuclear_data/0_1_exploring_endf-b8.1.ipynb
+
+site:
+  template: book-theme
+  options:
+    logo_text: OpenMC Studies
+  parts:
+    primary_sidebar_footer: sidebar-footer.md

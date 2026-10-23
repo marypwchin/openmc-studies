@@ -6,6 +6,8 @@
 
 This repository documents my continuing work with OpenMC. The starting point is extensive expertise in Monte Carlo radiation transport; the focus here is on applying that background through independent study of OpenMC.
 
+By Mary P. W. Chin
+
 ## Repository structure
 
 <!-- generated:structure -->
@@ -16,7 +18,10 @@ This repository documents my continuing work with OpenMC. The starting point is 
 │   ├── 0_0_setting_up_nuclear_data.py
 │   └── 0_1_exploring_endf-b8.1.ipynb
 ├── README.md
-└── openmc_studies_config.py
+├── index.md
+├── myst.yml
+├── openmc_studies_config.py
+└── sidebar-footer.md
 ```
 
 <details>
@@ -27,7 +32,8 @@ This repository documents my continuing work with OpenMC. The starting point is 
 ├── .github/
 │   └── workflows/
 │       ├── links.yml
-│       └── notebooks.yml
+│       ├── notebooks.yml
+│       └── publish.yml
 ├── 0_nuclear_data/
 │   ├── 0_0_setting_up_nuclear_data.ipynb
 │   ├── 0_0_setting_up_nuclear_data.py
@@ -41,9 +47,12 @@ This repository documents my continuing work with OpenMC. The starting point is 
 ├── .gitignore
 ├── .pre-commit-config.yaml
 ├── README.md
+├── index.md
+├── myst.yml
 ├── openmc_studies_config.py
 ├── pyproject.toml
-└── requirements-dev.txt
+├── requirements-dev.txt
+└── sidebar-footer.md
 ```
 
 See the [automation guide](docs/automation.md), [CI workflow](.github/workflows/notebooks.yml), and [pre-commit configuration](.pre-commit-config.yaml).
