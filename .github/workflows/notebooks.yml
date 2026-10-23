@@ -1,0 +1,37 @@
+name: Validate notebooks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: '3.13'
+      - name: Install validation tools
+        run: python -m pip install -r requirements-dev.txt -e .
+      - name: Check shared configuration outside the checkout
+        working-directory: ${{ runner.temp }}
+        run: |
+          python - <<'PY'
+          from openmc_studies_config import DATA_ROOT, ENDF_B81
+          assert DATA_ROOT.is_absolute()
+          assert ENDF_B81 == DATA_ROOT / 'endf-b8.1'
+          print('Shared configuration imports outside the repository:', ENDF_B81)
+          PY
+      - name: Check generated structures
+        run: python scripts/update_structure.py --check
+      - name: Validate notebook schemas
+        run: git ls-files -z '*.ipynb' ':!:**/.ipynb_checkpoints/**' | xargs -0 python scripts/check_notebooks.py
+      - name: Check local file links
+        run: python scripts/check_links.py
+      - name: Check Python syntax, fatal errors, and unused imports
+        run: ruff check --select E9,F63,F7,F82,F401 .

@@ -1,0 +1,30 @@
+repos:
+  - repo: local
+    hooks:
+      - id: update-structure
+        name: Update notebook outlines and README tree
+        entry: python scripts/update_structure.py
+        language: python
+        pass_filenames: false
+        always_run: true
+      - id: notebook-schema
+        name: Validate notebook format (no execution)
+        entry: python scripts/check_notebooks.py
+        language: python
+        additional_dependencies: [nbformat==5.10.4]
+        files: \.ipynb$
+        exclude: (^|/)\.ipynb_checkpoints/
+      - id: local-links
+        name: Check local Markdown and notebook file links
+        entry: python scripts/check_links.py
+        language: python
+        additional_dependencies: [markdown-it-py==3.0.0]
+        pass_filenames: false
+        always_run: true
+      - id: fatal-python-errors
+        name: Check Python syntax, fatal errors, and unused imports
+        entry: ruff check --select E9,F63,F7,F82,F401
+        language: python
+        additional_dependencies: [ruff==0.11.13]
+        types_or: [python, jupyter]
+        exclude: (^|/)\.ipynb_checkpoints/
