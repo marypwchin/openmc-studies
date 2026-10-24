@@ -1,6 +1,10 @@
 # OpenMC Workbench
 
 [![Notebook CI](https://github.com/marypwchin/openmc-workbench/actions/workflows/notebooks.yml/badge.svg)](https://github.com/marypwchin/openmc-workbench/actions/workflows/notebooks.yml)
+[![Pages](https://github.com/marypwchin/openmc-workbench/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/marypwchin/openmc-workbench/actions/workflows/publish.yml)
+[![External links](https://github.com/marypwchin/openmc-workbench/actions/workflows/links.yml/badge.svg)](https://github.com/marypwchin/openmc-workbench/actions/workflows/links.yml)
+[![Documentation](https://img.shields.io/badge/docs-MyST-blue)](https://marypwchin.github.io/openmc-workbench/)
+
 
 **Ongoing work exploring [OpenMC](https://openmc.org/), building on an extensive background in Monte Carlo radiation transport.**
 
@@ -69,11 +73,12 @@ See the [automation guide](docs/automation.md), [CI workflow](.github/workflows/
 ## Shared data location
 
 The notebooks and text-only setup script use [openmc_workbench_config.py](openmc_workbench_config.py)
-to find nuclear data under `~/data`. To install this shared module, run
+to locate the nuclear-data path, so that the path does not need to be defined in every notebook. Set `DATA_ROOT` in [openmc_workbench_config.py](openmc_workbench_config.py) to your nuclear-data path. To install this shared module, run
 `python -m pip install -e .` from the repository root in the Python environment
 used by your Jupyter kernel. In a notebook, you can instead run
 `%pip install -e /absolute/path/to/openmc-workbench`, using your checkout's actual path.
-Edit `DATA_ROOT` in that module if your data lives elsewhere, then restart the kernel.
+
+Review the setup notebook's disk-space requirements and preview the installation with `APPLY = False` before running with downloads or conversion.
 
 ## Status
 

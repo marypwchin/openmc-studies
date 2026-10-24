@@ -4,22 +4,26 @@
 
 This layout follows common Python and GitHub conventions. The configuration
 formats are standard; the checks and helper scripts are tailored to this
-repository. Paths in this table are relative to the repository root.
+repository. Paths in this table are relative to the repository root. The **Category**
+column groups files by responsibility; it is part of this guide, not the
+generated notebook table in `index.md`.
 
-| File | Format | Purpose | Convention |
-| --- | --- | --- | --- |
-| [.github/workflows/notebooks.yml](../.github/workflows/notebooks.yml) | YAML | Defines push, pull-request, and manual triggers, then jobs and steps for repository validation. `run` executes shell commands; `uses` reuses GitHub Actions. | GitHub discovers workflow files in `.github/workflows/`; the filename is project-defined. |
-| [.github/workflows/links.yml](../.github/workflows/links.yml) | YAML | Schedules external-link checks and allows manual runs. Extracts URLs from prose and passes them to Lychee. | Same GitHub Actions convention; runs independently of notebook validation. |
-| [.github/workflows/publish.yml](../.github/workflows/publish.yml) | YAML | Builds the MyST website and deploys it to GitHub Pages when `main` receives a push. | GitHub Actions workflow; Pages must be configured to use GitHub Actions as its deployment source. |
-| [.pre-commit-config.yaml](../.pre-commit-config.yaml) | YAML | Lists local hooks, commands, dependencies, and file filters. `repo: local` defines hooks within this repository. | Standard filename for pre-commit. Installing the Git hook activates it for this checkout. |
-| [requirements-dev.txt](../requirements-dev.txt) | pip requirements text | Lists development tools. `ruff==0.11.13`, for example, pins that package to an exact version. | Common filename, explicitly read by `pip install -r requirements-dev.txt`; pip does not discover it automatically. |
-| [pyproject.toml](../pyproject.toml) | TOML | Declares the package and build system. `[project]` contains package metadata; `[tool.setuptools]` selects the module to package. | Standard Python packaging file; enables `pip install -e .` here. |
-| [openmc_workbench_config.py](../openmc_workbench_config.py) | Python | Defines `DATA_ROOT` and `ENDF_B81` for import by the notebooks and the setup script. | Custom module; supports the notebooks rather than implementing a CI check. |
-| [scripts/update_structure.py](../scripts/update_structure.py) | Python | Reads notebook headings and the Git file inventory, then updates generated outline and README tree blocks. `--check` reports stale content without writing. | Custom script; `scripts/` is a common directory convention. |
-| [scripts/check_notebooks.py](../scripts/check_notebooks.py) | Python | Uses `nbformat` to validate notebook schemas without executing cells. | Custom wrapper around a standard notebook library. |
-| [scripts/check_links.py](../scripts/check_links.py) | Python | Parses Markdown, checks local file targets, and exports external prose URLs for Lychee. | Custom script shared by local hooks and CI. |
-| [docs/automation.md](automation.md) | Markdown | Explains installation, checks, and troubleshooting. | `docs/` is a common documentation directory; this path is project-defined. |
-| [.gitignore](../.gitignore) | Git ignore patterns | Excludes untracked environments, caches, checkpoints, and build artifacts from normal staging. It does not untrack files already committed. | Standard Git filename and pattern syntax. |
+| Category | File | Format | Purpose | Convention |
+| --- | --- | --- | --- | --- |
+| GitHub Actions | [.github/workflows/notebooks.yml](../.github/workflows/notebooks.yml) | YAML | Defines push, pull-request, and manual triggers, then jobs and steps for repository validation. `run` executes shell commands; `uses` reuses GitHub Actions. | GitHub discovers workflow files in `.github/workflows/`; the filename is project-defined. |
+| GitHub Actions | [.github/workflows/links.yml](../.github/workflows/links.yml) | YAML | Schedules external-link checks and allows manual runs. Extracts URLs from prose and passes them to Lychee. | Same GitHub Actions convention; runs independently of notebook validation. |
+| GitHub Actions | [.github/workflows/publish.yml](../.github/workflows/publish.yml) | YAML | Builds the MyST website and deploys it to GitHub Pages when `main` receives a push. | GitHub Actions workflow; Pages must be configured to use GitHub Actions as its deployment source. |
+| Local checks | [.pre-commit-config.yaml](../.pre-commit-config.yaml) | YAML | Lists local hooks, commands, dependencies, and file filters. `repo: local` defines hooks within this repository. | Standard filename for pre-commit. Installing the Git hook activates it for this checkout. |
+| Dependencies & packaging | [requirements-dev.txt](../requirements-dev.txt) | pip requirements text | Lists development tools. `ruff==0.11.13`, for example, pins that package to an exact version. | Common filename, explicitly read by `pip install -r requirements-dev.txt`; pip does not discover it automatically. |
+| Dependencies & packaging | [pyproject.toml](../pyproject.toml) | TOML | Declares the package and build system. `[project]` contains package metadata; `[tool.setuptools]` selects the module to package. | Standard Python packaging file; enables `pip install -e .` here. |
+| Configuration | [openmc_workbench_config.py](../openmc_workbench_config.py) | Python | Defines `DATA_ROOT` and `ENDF_B81` for import by the notebooks and the setup script. | Custom module; supports the notebooks rather than implementing a CI check. |
+| Website | [myst.yml](../myst.yml) | YAML | Defines notebook groups for the website and the ordered file patterns used by the generated index; group labels are not index columns. | MyST project configuration; `- pattern:` entries may select multiple notebooks. |
+| Website | [index.md](../index.md) | Markdown | Contains the workbench landing page and its generated notebook catalog. | Prose is edited by hand; only the marked table is generated. |
+| Automation scripts | [scripts/update_structure.py](../scripts/update_structure.py) | Python | Generates notebook heading outlines, the README tree, and the `index.md` notebook table; `--check` verifies without writing. | Custom script; `scripts/` is a common directory convention. |
+| Automation scripts | [scripts/check_notebooks.py](../scripts/check_notebooks.py) | Python | Uses `nbformat` to validate notebook schemas without executing cells. | Custom wrapper around a standard notebook library. |
+| Automation scripts | [scripts/check_links.py](../scripts/check_links.py) | Python | Parses Markdown, checks local file targets, and exports external prose URLs for Lychee. | Custom script shared by local hooks and CI. |
+| Documentation | [docs/automation.md](automation.md) | Markdown | Explains installation, checks, and troubleshooting. | `docs/` is a common documentation directory; this path is project-defined. |
+| Git | [.gitignore](../.gitignore) | Git ignore patterns | Excludes untracked environments, caches, checkpoints, and build artifacts from normal staging. It does not untrack files already committed. | Standard Git filename and pattern syntax. |
 
 The connections are:
 
@@ -38,6 +42,9 @@ Weekly or manual external-link check
 
 The notebooks and the text-only setup script
 └── openmc_workbench_config.py → shared nuclear-data locations
+
+MyST table of contents and notebook metadata
+└── myst.yml + notebook title/description → index.md notebook table
 ```
 
 **YAML** means *YAML Ain't Markup Language*. Both `.yml` and `.yaml` denote the
@@ -65,33 +72,86 @@ the repository-specific operations, and Markdown explains the system to people.
 `.venv/` and `.ruff_cache/` are local tool-created directories, not workflow
 source files; keep them out of commits.
 
-## 1. Understand the two generated structures
+## 1. Understand the three generated structures
 
-`scripts/update_structure.py` reads Markdown ATX headings (`#` through
-`######`) in every nonignored notebook. It skips fenced code examples, turns
-the heading hierarchy into a text tree, and inserts a marked Markdown block
-immediately after the first `#` title. Headings inside that first cell are
-included too. Use one `#` title per notebook and `##`/`###` headings for
-its sections and subsections. Setext headings (underlined titles) and HTML
-headings are not supported.
+`scripts/update_structure.py` maintains three generated outputs:
 
-The same script updates only the marked structure section in README.md. The
-default tree shows workbench content. Hidden paths and the top-level `docs/`,
-`scripts/`, `requirements-dev.txt`, and `pyproject.toml` are reserved for an
-expandable “Full repository tree, tooling, and CI” section with links to the CI
-workflow, pre-commit configuration, and this guide. Adjust the `infrastructure`
-set in `readme_text()` if more tooling directories are added.
+1. **Notebook outlines.** It reads Markdown ATX headings (`#` through `######`)
+   in nonignored notebooks, skipping fenced code examples. It converts the
+   heading hierarchy into a text tree between `<!-- generated:structure -->`
+   and `<!-- /generated:structure -->` in the notebook's title cell, after the
+   editable description. Headings within that title cell are included. Use one
+   `#` title per notebook and `##`/`###` for sections and subsections. Setext
+   headings (underlined titles) and HTML headings are not supported.
+2. **README directory tree.** The script updates only the marked structure
+   section in `README.md`. Its default tree shows workbench content; hidden
+   paths and the top-level `docs/`, `scripts/`, `requirements-dev.txt`, and
+   `pyproject.toml` appear in an expandable “Full repository tree, tooling, and
+   CI” section. Adjust `infrastructure` in `readme_text()` if more tooling
+   directories are added. The Git file inventory includes tracked files and
+   nonignored new files on disk, but omits empty directories, notebook
+   checkpoints, virtual environments, and caches. Use `.gitignore` to keep
+   large local datasets out of this inventory.
+3. **`index.md` notebook catalog.** The script generates a two-column table:
+   `Workbench | What it covers`. Notebook order comes from `myst.yml`; titles
+   and descriptions come from the notebooks. MyST category headings group the
+   site navigation, but are not included as columns in the index. Only
+   content between `<!-- generated:notebooks -->` and
+   `<!-- /generated:notebooks -->` is replaced. On the first run, an existing
+   `Workbench | What it covers` table is replaced with the marked block.
 
-Its file inventory comes from Git: tracked files plus nonignored new files that
-exist on disk. Empty directories, notebook checkpoints, virtual environments,
-and caches are omitted. Add large data directories and other local artifacts to
-`.gitignore` if they live inside this repository and should stay out of the
-tree.
+### Notebook metadata: maintain it in one place
 
-The script updates the generated outline without changing notebook outputs,
-code, execution counts, or other metadata. JSON formatting may change when a
-notebook is rewritten. Close notebooks or reload them after an external update
-so an older editor buffer does not overwrite the generated outline.
+Put the title and description in the notebook's first Markdown title cell:
+
+```markdown
+# Cataloging nuclear data libraries
+
+<!-- index:description -->
+Build a reference DataFrame cataloging nuclides, MT reaction numbers, and nuclear-data libraries.
+<!-- /index:description -->
+
+<!-- generated:structure -->
+... automatically generated by the script ...
+<!-- /generated:structure -->
+```
+
+Edit the title and description yourself; the script manages only the outline.
+**No description initializer is needed.** Every notebook selected for the index
+must have a nonempty description between the two `index:description` markers.
+Keep those markers in the same Markdown cell as the `#` title.
+
+### Wildcard notebook selection
+
+MyST uses `- title:` to group notebooks in the site navigation. Your current
+configuration uses `- pattern:` to include all matching notebooks without
+listing each one:
+
+```yaml
+project:
+  toc:
+    - file: index.md
+    - title: Nuclear data
+      children:
+        - pattern: 0_nuclear_data/*.ipynb
+```
+
+This adds one two-column index row per notebook matching the pattern; no
+category column is generated. The script expands notebook patterns in
+**sorted filename order**. For example, `0_0_...ipynb` precedes
+`0_1_...ipynb`. Multiple titled sections remain visible in MyST navigation,
+without affecting the `index.md` table format.
+
+The generator accepts both explicit `- file: path/to/notebook.ipynb` entries
+and `- pattern: directory/*.ipynb`. It fails if a notebook pattern matches
+nothing, an explicit notebook is missing, or the same notebook appears twice.
+It handles the simple MyST TOC format shown above; it is **not a general YAML
+parser**. Update the reader if the TOC adopts more advanced YAML constructs.
+
+The script updates generated outlines without changing notebook code, outputs,
+execution counts, or other metadata. JSON formatting may change when a notebook
+is rewritten. Close notebooks or reload them after an external update so an
+older editor buffer does not overwrite the generated outline.
 
 ## 2. Generate and inspect manually
 
@@ -99,15 +159,17 @@ From the repository root:
 
 ```sh
 python3 scripts/update_structure.py
-git diff --stat
-git diff -- README.md
 python3 scripts/update_structure.py --check
+git diff --stat
+git diff -- README.md index.md docs/automation.md
+git diff -- 0_nuclear_data
 ```
 
-Open the notebooks and inspect the generated trees. `--check` reports stale
-generated content and exits nonzero without writing anything. A second normal
-run should make no changes. Run again after adding or removing files or
-renaming headings.
+Open the notebooks to inspect the generated heading trees and review the
+`index.md` table. `--check` reports stale content and exits nonzero without
+writing anything. A second normal run should make no changes. Run the generator
+after adding or removing files, changing headings or descriptions, or changing
+the order or selection of MyST notebook entries.
 
 ## 3. Install pre-commit in a local development environment
 
@@ -132,8 +194,9 @@ pre-commit run --all-files
 
 Four hooks are configured (the configuration file defines their order):
 
-1. Generate outlines and README structure. It runs on every commit because a
-   change to any repository filename can change the README tree.
+1. Generate notebook outlines, README structure, and the index table. It runs
+   on every commit because repository files or notebook metadata can change
+   these outputs.
 2. Validate notebook schemas with nbformat. This checks notebook structure,
    required fields, cell types, and metadata format. It does not validate the
    scientific results or execute cells.
@@ -216,9 +279,10 @@ dispatch. In the repository's **Actions** tab, select **Validate notebooks** to
 inspect job logs and step diagnostics. To run it manually, select
 **Run workflow** once the workflow is available on the default branch.
 
-CI uses `--check` for structures: it fails on stale documentation without
-changing it. Fix locally with `python scripts/update_structure.py`, review and
-commit the updated files, then push again. To reproduce the other CI steps:
+CI uses `--check` for outlines, the README tree, and the `index.md` table: it
+fails on stale generated content without changing it. Fix locally with
+`python scripts/update_structure.py`, review and commit the changes, then push
+again. To reproduce the other CI steps:
 
 ```sh
 python scripts/check_notebooks.py 0_nuclear_data/*.ipynb
