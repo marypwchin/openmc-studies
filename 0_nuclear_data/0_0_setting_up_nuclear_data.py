@@ -1,6 +1,6 @@
 # Python version of openmc_nuclear_data_setup.ipynb.
-# Install the shared module first: python -m pip install -e /absolute/path/to/openmc-studies
-# Configure DATA_ROOT in openmc_studies_config.py; edit APPLY and LOCAL_ARCHIVES below.
+# Install the shared module first: python -m pip install -e /absolute/path/to/openmc-workbench
+# Configure DATA_ROOT in openmc_workbench_config.py; edit APPLY and LOCAL_ARCHIVES below.
 
 # %% [markdown]
 # # Set up OpenMC nuclear data
@@ -96,7 +96,7 @@ import xml.etree.ElementTree as ET
 import zipfile
 from tqdm import tqdm
 
-from openmc_studies_config import DATA_ROOT
+from openmc_workbench_config import DATA_ROOT
 
 ROOT = DATA_ROOT
 APPLY = False  # True installs data; False prints the steps only.
@@ -372,7 +372,7 @@ for name, url in CHAIN_URLS.items():
 #
 # Check that the indexes and their referenced files exist. This is a file check, not validation of the nuclear data.
 #
-# In subsequent notebooks, import `ENDF_B81` from `openmc_studies_config` to locate the ENDF/B-VIII.1 library. All notebooks share `DATA_ROOT` from that module, independently of the notebook working directory.
+# In subsequent notebooks, import `ENDF_B81` from `openmc_workbench_config` to locate the ENDF/B-VIII.1 library. All notebooks share `DATA_ROOT` from that module, independently of the notebook working directory.
 
 # %%
 for key in (*HDF5_URLS, "fendl-3.2c"):

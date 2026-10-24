@@ -112,7 +112,7 @@ def readme_text(paths):
                 node = node.setdefault(part, {})
         return '```text\n' + '\n'.join(['.'] + tree_lines(nodes(nested))) + '\n```'
 
-    # Keep infrastructure available on demand without crowding the study overview.
+    # Keep infrastructure available on demand without crowding the workbench overview.
     infrastructure = {'docs', 'scripts', 'requirements-dev.txt', 'pyproject.toml'}
     visitor_paths = [p for p in paths if
                      not any(part.startswith('.') for part in Path(p).parts)

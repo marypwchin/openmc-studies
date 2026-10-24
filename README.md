@@ -1,14 +1,14 @@
-# OpenMC Studies
+# OpenMC Workbench
 
-[![Notebook CI](https://github.com/marypwchin/openmc-studies/actions/workflows/notebooks.yml/badge.svg)](https://github.com/marypwchin/openmc-studies/actions/workflows/notebooks.yml)
+[![Notebook CI](https://github.com/marypwchin/openmc-workbench/actions/workflows/notebooks.yml/badge.svg)](https://github.com/marypwchin/openmc-workbench/actions/workflows/notebooks.yml)
 
 **Ongoing work exploring [OpenMC](https://openmc.org/), building on an extensive background in Monte Carlo radiation transport.**
 
-This repository documents my continuing work with OpenMC. The starting point is extensive expertise in Monte Carlo radiation transport; the focus here is on applying that background through independent study of OpenMC.
+This repository documents my ongoing exploration of OpenMC from the perspective of an experienced Monte Carlo radiation-transport physicist. It emphasizes hands-on investigation, computational workflows, and practical understanding rather than formal research studies.
 
 By Mary P. W. Chin
 
-[**Read the studies online →**](https://marypwchin.github.io/openmc-studies/)
+[**Read online →**](https://marypwchin.github.io/openmc-workbench/)
 
 ## Repository structure
 
@@ -24,7 +24,7 @@ By Mary P. W. Chin
 ├── README.md
 ├── index.md
 ├── myst.yml
-├── openmc_studies_config.py
+├── openmc_workbench_config.py
 └── sidebar-footer.md
 ```
 
@@ -55,7 +55,7 @@ By Mary P. W. Chin
 ├── README.md
 ├── index.md
 ├── myst.yml
-├── openmc_studies_config.py
+├── openmc_workbench_config.py
 ├── pyproject.toml
 ├── requirements-dev.txt
 └── sidebar-footer.md
@@ -68,13 +68,13 @@ See the [automation guide](docs/automation.md), [CI workflow](.github/workflows/
 
 ## Shared data location
 
-The notebooks and text-only setup script use [openmc_studies_config.py](openmc_studies_config.py)
+The notebooks and text-only setup script use [openmc_workbench_config.py](openmc_workbench_config.py)
 to find nuclear data under `~/data`. To install this shared module, run
 `python -m pip install -e .` from the repository root in the Python environment
 used by your Jupyter kernel. In a notebook, you can instead run
-`%pip install -e /absolute/path/to/openmc-studies`, using your checkout's actual path.
+`%pip install -e /absolute/path/to/openmc-workbench`, using your checkout's actual path.
 Edit `DATA_ROOT` in that module if your data lives elsewhere, then restart the kernel.
 
 ## Status
 
-This is an active, evolving collection of studies. Code, documentation, and analyses will be added and revised as the work progresses. Scope, assumptions, and validation status will be documented as the work progresses.
+This is an active, evolving workbench. Code, documentation, and analyses will be added and revised as the work progresses. Scope, assumptions, and validation status will be documented as the work progresses.

@@ -22,7 +22,7 @@ jobs:
         working-directory: ${{ runner.temp }}
         run: |
           python - <<'PY'
-          from openmc_studies_config import DATA_ROOT, ENDF_B81
+          from openmc_workbench_config import DATA_ROOT, ENDF_B81
           assert DATA_ROOT.is_absolute()
           assert ENDF_B81 == DATA_ROOT / 'endf-b8.1'
           print('Shared configuration imports outside the repository:', ENDF_B81)

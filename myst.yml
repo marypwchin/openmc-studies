@@ -1,10 +1,10 @@
 version: 1
 
 project:
-  title: OpenMC Studies
+  title: OpenMC Workbench
   authors:
     - name: Mary P. W. Chin
-  github: https://github.com/marypwchin/openmc-studies
+  github: https://github.com/marypwchin/openmc-workbench
   toc:
     - file: index.md
     - title: Nuclear data
@@ -15,6 +15,6 @@ project:
 site:
   template: book-theme
   options:
-    logo_text: OpenMC Studies
+    logo_text: OpenMC Workbench
   parts:
     primary_sidebar_footer: sidebar-footer.md
