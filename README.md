@@ -8,6 +8,8 @@ This repository documents my continuing work with OpenMC. The starting point is 
 
 By Mary P. W. Chin
 
+[**Read the studies online →**](https://marypwchin.github.io/openmc-studies/)
+
 ## Repository structure
 
 <!-- generated:structure -->
@@ -16,7 +18,9 @@ By Mary P. W. Chin
 ├── 0_nuclear_data/
 │   ├── 0_0_setting_up_nuclear_data.ipynb
 │   ├── 0_0_setting_up_nuclear_data.py
-│   └── 0_1_exploring_endf-b8.1.ipynb
+│   ├── 0_1_exploring_endf-b8.1.ipynb
+│   ├── 0_2_cataloging_nuclear_data_libraries.feather
+│   └── 0_2_cataloging_nuclear_data_libraries.ipynb
 ├── README.md
 ├── index.md
 ├── myst.yml
@@ -37,7 +41,9 @@ By Mary P. W. Chin
 ├── 0_nuclear_data/
 │   ├── 0_0_setting_up_nuclear_data.ipynb
 │   ├── 0_0_setting_up_nuclear_data.py
-│   └── 0_1_exploring_endf-b8.1.ipynb
+│   ├── 0_1_exploring_endf-b8.1.ipynb
+│   ├── 0_2_cataloging_nuclear_data_libraries.feather
+│   └── 0_2_cataloging_nuclear_data_libraries.ipynb
 ├── docs/
 │   └── automation.md
 ├── scripts/
